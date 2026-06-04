@@ -1,9 +1,14 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { generateQuestions, calculateScore, type Question } from "../data/questionGenerator";
 import { fetchCountries } from "../services/countriesApi";
 import { OptionCard } from "../components/OptionCard";
 import { QuestionCard } from "../components/QuestionCard";
+import { Timer } from "../components/Timer";
+import { useTimer } from "../hooks/useTimer";
+import { playCorrectSound, playIncorrectSound, playTimeoutSound } from "../utils/audio";
+
+const QUESTION_TIME_LIMIT = 15;
 
 export default function Quiz() {
   const navigate = useNavigate();
@@ -30,6 +35,32 @@ export default function Quiz() {
     initQuiz();
   }, []);
 
+  const currentQuestion = questions[currentIndex];
+
+  const handleTimeUp = useCallback(() => {
+    setQuestions((currentQuestions) => {
+      const question = currentQuestions[currentIndex];
+      if (!question || question.isAnswered) return currentQuestions;
+
+      const updatedQuestions = [...currentQuestions];
+      updatedQuestions[currentIndex] = {
+        ...question,
+        userAnswer: null,
+        isAnswered: true,
+      };
+      playTimeoutSound();
+
+      return updatedQuestions;
+    });
+  }, [currentIndex]);
+
+  const { secondsLeft, progress } = useTimer({
+    initialSeconds: QUESTION_TIME_LIMIT,
+    isRunning: Boolean(currentQuestion && !currentQuestion.isAnswered),
+    resetKey: currentIndex,
+    onTimeUp: handleTimeUp,
+  });
+
   const handleAnswerClick = (selectedOption: string) => {
     if (questions[currentIndex]?.isAnswered) return;
 
@@ -37,6 +68,12 @@ export default function Quiz() {
     updatedQuestions[currentIndex].userAnswer = selectedOption;
     updatedQuestions[currentIndex].isAnswered = true;
     setQuestions(updatedQuestions);
+
+    if (selectedOption === updatedQuestions[currentIndex].correctAnswer) {
+      playCorrectSound();
+    } else {
+      playIncorrectSound();
+    }
   };
 
   const handleNext = () => {
@@ -83,13 +120,13 @@ export default function Quiz() {
     );
   }
 
-  if (questions.length === 0) return null;
-
-  const currentQuestion = questions[currentIndex];
+  if (!currentQuestion) return null;
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 py-8 px-4">
       <div className="max-w-2xl mx-auto">
+        <Timer secondsLeft={secondsLeft} progress={progress} />
+
         <QuestionCard
           question={currentQuestion}
           questionNumber={currentIndex + 1}

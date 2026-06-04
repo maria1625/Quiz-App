@@ -32,7 +32,9 @@ export async function fetchCountries(): Promise<Country[]> {
     return data as Country[];
   } catch (error) {
     if (error instanceof DOMException && error.name === "AbortError") {
-      throw new Error("La petición tardó demasiado. Revisa tu conexión e intenta de nuevo.");
+      throw new Error("La petición tardó demasiado. Revisa tu conexión e intenta de nuevo.", {
+        cause: error,
+      });
     }
 
     if (error instanceof Error) {
@@ -40,10 +42,11 @@ export async function fetchCountries(): Promise<Country[]> {
         error.message === "Failed to fetch"
           ? "No se pudo conectar con el servidor. Revisa tu conexión o bloqueadores (VPN/AdBlock) e intenta de nuevo."
           : error.message,
+        { cause: error },
       );
     }
 
-    throw new Error("No se pudo conectar con el servidor. Intenta de nuevo.");
+    throw new Error("No se pudo conectar con el servidor. Intenta de nuevo.", { cause: error });
   } finally {
     window.clearTimeout(timeoutId);
   }
