@@ -71,7 +71,7 @@ src/
 Clonar el repositorio:
 
 ```bash
-git clone https://github.com/USUARIO/Quiz-App.git
+https://github.com/maria1625/Quiz-App.git
 ```
 
 Ingresar al proyecto:
