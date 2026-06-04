@@ -1,3 +1,5 @@
-export default function ResultsPage() {
-  return <div>Results</div>
+function ResultsPage() {
+  return <h1>Results Page</h1>;
 }
+
+export default ResultsPage;
