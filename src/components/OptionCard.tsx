@@ -1,4 +1,4 @@
-﻿interface OptionCardProps {
+interface OptionCardProps {
   option: string;
   isCorrect: boolean;
   isSelected: boolean;
@@ -29,7 +29,7 @@ export function OptionCard({ option, isCorrect, isSelected, isAnswered, onClick 
     <button
       onClick={onClick}
       disabled={isAnswered}
-      className={w-full p-4 rounded-lg border-2 font-semibold transition-all duration-200  }
+      className={`w-full p-4 rounded-lg border-2 font-semibold transition-all duration-200 ${getStyles()}`}
     >
       {option}
     </button>

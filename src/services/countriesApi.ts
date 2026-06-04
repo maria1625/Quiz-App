@@ -12,13 +12,40 @@
 }
 
 export async function fetchCountries(): Promise<Country[]> {
+  const controller = new AbortController();
+  const timeoutId = window.setTimeout(() => controller.abort(), 15000);
+
   try {
-    const response = await fetch("https://restcountries.com/v3.1/all");
-    if (!response.ok) throw new Error("Failed to fetch countries");
-    return await response.json();
+    const url =
+      "https://restcountries.com/v3.1/all?fields=name,capital,region,flags,population";
+
+    const response = await fetch(url, { signal: controller.signal });
+    if (!response.ok) {
+      throw new Error("No se pudieron cargar los países (error del servidor).");
+    }
+
+    const data: unknown = await response.json();
+    if (!Array.isArray(data)) {
+      throw new Error("La respuesta del servidor no tiene el formato esperado.");
+    }
+
+    return data as Country[];
   } catch (error) {
-    console.error("Error fetching countries:", error);
-    throw error;
+    if (error instanceof DOMException && error.name === "AbortError") {
+      throw new Error("La petición tardó demasiado. Revisa tu conexión e intenta de nuevo.");
+    }
+
+    if (error instanceof Error) {
+      throw new Error(
+        error.message === "Failed to fetch"
+          ? "No se pudo conectar con el servidor. Revisa tu conexión o bloqueadores (VPN/AdBlock) e intenta de nuevo."
+          : error.message,
+      );
+    }
+
+    throw new Error("No se pudo conectar con el servidor. Intenta de nuevo.");
+  } finally {
+    window.clearTimeout(timeoutId);
   }
 }
 
