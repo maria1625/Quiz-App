@@ -1,73 +1,164 @@
-# React + TypeScript + Vite
+# 🌎 Country Quiz App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web de preguntas y respuestas sobre países desarrollada como parte del curso de Desarrollo Web.
 
-Currently, two official plugins are available:
+## 📖 Descripción
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+Country Quiz es una aplicación interactiva que pone a prueba los conocimientos del usuario sobre países del mundo. Las preguntas son generadas dinámicamente utilizando información obtenida desde una API externa.
 
-## React Compiler
+El usuario deberá responder 10 preguntas de selección múltiple, recibir retroalimentación inmediata y obtener una puntuación final al terminar el cuestionario.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🚀 Tecnologías Utilizadas
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React
+- TypeScript
+- Vite
+- React Router DOM
+- Tailwind CSS
+- Axios
+- ESLint
+- Vitest
+- Testing Library
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📂 Estructura del Proyecto
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```text
+src/
+├── assets/
+├── components/
+├── hooks/
+├── layouts/
+├── pages/
+├── routes/
+├── services/
+├── styles/
+├── types/
+├── utils/
+├── App.tsx
+└── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ✨ Funcionalidades
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+### Funcionalidades Base
+
+- Generación automática de 10 preguntas.
+- Consumo de API de países.
+- 4 opciones por pregunta.
+- Retroalimentación inmediata.
+- Navegación entre preguntas.
+- Página de resultados.
+- Reinicio del cuestionario.
+
+### Funcionalidades Adicionales
+
+- ⏱️ Temporizador de 15 segundos por pregunta.
+- 🏆 Persistencia de récord (High Score).
+- 🌙 Modo Oscuro / Claro.
+- 🔊 Sonidos de acierto y error.
+- 📱 Diseño responsive.
+
+---
+
+## 🛠️ Instalación
+
+Clonar el repositorio:
+
+```bash
+git clone https://github.com/USUARIO/Quiz-App.git
 ```
+
+Ingresar al proyecto:
+
+```bash
+cd Quiz-App
+```
+
+Instalar dependencias:
+
+```bash
+npm install
+```
+
+Ejecutar en desarrollo:
+
+```bash
+npm run dev
+```
+
+---
+
+## 🧪 Pruebas
+
+Ejecutar pruebas:
+
+```bash
+npm run test
+```
+
+Ejecutar ESLint:
+
+```bash
+npm run lint
+```
+
+---
+
+## 🌍 API Utilizada
+
+REST Countries API
+
+```text
+https://restcountries.com/v3.1/all
+```
+
+---
+
+## 📌 Rutas del Sistema
+
+| Ruta | Descripción |
+|--------|--------|
+| / | Página principal |
+| /quiz | Cuestionario |
+| /results | Resultados |
+| * | Página 404 |
+
+---
+
+## 👥 Integrantes
+
+- María  Guerra 
+- Jorge Montoya
+- Jaider Chindoy 
+
+---
+
+## 🎥 Sustentación
+
+Video:
+
+```text
+Pendiente
+```
+
+---
+
+## 🌐 Despliegue
+
+Netlify:
+
+```text
+Pendiente
+```
+
+---
+
+## 📄 Licencia
+
+Proyecto académico desarrollado para fines educativos.
