@@ -1,6 +1,6 @@
 # 🌎 Country Quiz App
 
-Aplicación web de preguntas y respuestas sobre países desarrollada como parte del curso de Desarrollo Web.
+Aplicación web de preguntas y respuestas sobre países.
 
 ## 📖 Descripción
 
