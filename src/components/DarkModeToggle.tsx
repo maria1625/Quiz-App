@@ -26,9 +26,30 @@ export function DarkModeToggle() {
       type="button"
       onClick={toggleTheme}
       aria-label={isDarkMode ? "Cambiar a modo claro" : "Cambiar a modo oscuro"}
-      className="rounded-lg border border-gray-300 px-3 py-2 text-sm font-semibold text-gray-700 transition hover:bg-gray-100 dark:border-gray-600 dark:text-gray-100 dark:hover:bg-gray-700"
+      className="
+        inline-flex
+        items-center
+        gap-2
+        rounded-xl
+        border
+        border-gray-200
+        bg-white/70
+        px-3
+        py-2
+        text-sm
+        font-semibold
+        text-gray-800
+        backdrop-blur
+        transition
+        hover:bg-white
+        dark:border-gray-700
+        dark:bg-gray-900/40
+        dark:text-gray-100
+        dark:hover:bg-gray-900/70
+      "
     >
-      {isDarkMode ? "Modo claro" : "Modo oscuro"}
+      <span>{isDarkMode ? "☀️" : "🌙"}</span>
+      <span>{isDarkMode ? "Modo claro" : "Modo oscuro"}</span>
     </button>
   );
 }

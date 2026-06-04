@@ -4,9 +4,9 @@ Aplicación web de preguntas y respuestas sobre países.
 
 ## 📖 Descripción
 
-Country Quiz es una aplicación interactiva que pone a prueba los conocimientos del usuario sobre países del mundo. Las preguntas son generadas dinámicamente utilizando información obtenida desde una API externa.
+Country Quiz es una aplicación interactiva que pone a prueba los conocimientos del usuario sobre países del mundo. Las preguntas se generan dinámicamente utilizando información obtenida desde una API externa.
 
-El usuario deberá responder 10 preguntas de selección múltiple, recibir retroalimentación inmediata y obtener una puntuación final al terminar el cuestionario.
+El usuario responde 10 preguntas de selección múltiple, recibe retroalimentación inmediata y obtiene una puntuación final al terminar el cuestionario.
 
 ---
 
@@ -15,9 +15,9 @@ El usuario deberá responder 10 preguntas de selección múltiple, recibir retro
 - React
 - TypeScript
 - Vite
-- React Router DOM
+- React Router DOM (Latest)
 - Tailwind CSS
-- Axios
+- Fetch API
 - ESLint
 - Vitest
 - Testing Library
@@ -30,15 +30,16 @@ El usuario deberá responder 10 preguntas de selección múltiple, recibir retro
 src/
 ├── assets/
 ├── components/
+├── data/
 ├── hooks/
 ├── layouts/
 ├── pages/
 ├── routes/
 ├── services/
-├── styles/
-├── types/
+├── tests/
 ├── utils/
 ├── App.tsx
+├── index.css
 └── main.tsx
 ```
 
@@ -59,9 +60,9 @@ src/
 ### Funcionalidades Adicionales
 
 - ⏱️ Temporizador de 15 segundos por pregunta.
-- 🏆 Persistencia de récord (High Score).
+- 🏆 Persistencia de récord (High Score) con localStorage.
 - 🌙 Modo Oscuro / Claro.
-- 🔊 Sonidos de acierto y error.
+- 🔊 Sonidos sutiles de acierto, error y tiempo agotado.
 - 📱 Diseño responsive.
 
 ---
@@ -71,7 +72,7 @@ src/
 Clonar el repositorio:
 
 ```bash
-https://github.com/maria1625/Quiz-App.git
+git clone https://github.com/maria1625/Quiz-App.git
 ```
 
 Ingresar al proyecto:
@@ -92,6 +93,18 @@ Ejecutar en desarrollo:
 npm run dev
 ```
 
+Build de producción:
+
+```bash
+npm run build
+```
+
+Previsualizar producción:
+
+```bash
+npm run preview
+```
+
 ---
 
 ## 🧪 Pruebas
@@ -99,7 +112,7 @@ npm run dev
 Ejecutar pruebas:
 
 ```bash
-npm run test
+npm test
 ```
 
 Ejecutar ESLint:
@@ -115,7 +128,7 @@ npm run lint
 REST Countries API
 
 ```text
-https://restcountries.com/v3.1/all
+https://restcountries.com/v3.1/all?fields=name,capital,region,flags,population
 ```
 
 ---
@@ -126,7 +139,7 @@ https://restcountries.com/v3.1/all
 |--------|--------|
 | / | Página principal |
 | /quiz | Cuestionario |
-| /results | Resultados |
+| /result | Resultados |
 | * | Página 404 |
 
 ---
@@ -139,26 +152,13 @@ https://restcountries.com/v3.1/all
 
 ---
 
-## 🎥 Sustentación
-
-Video:
-
-```text
-Pendiente
-```
-
----
 
 ## 🌐 Despliegue
 
-Netlify:
+Demo:
 
 ```text
 Pendiente
 ```
 
----
 
-## 📄 Licencia
-
-Proyecto académico desarrollado para fines educativos.

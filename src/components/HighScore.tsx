@@ -21,9 +21,12 @@ export function HighScore({ label = "Mejor puntaje" }: HighScoreProps) {
   }, []);
 
   return (
-    <div className="rounded-lg border border-yellow-200 bg-yellow-50 px-4 py-3 text-yellow-900 dark:border-yellow-700 dark:bg-yellow-950 dark:text-yellow-100">
-      <p className="text-sm font-semibold">{label}</p>
-      <p className="text-2xl font-bold">{highScore}</p>
+    <div className="flex items-center gap-3 rounded-2xl border border-yellow-200 bg-yellow-50 px-4 py-3 text-yellow-900 shadow-sm dark:border-yellow-900 dark:bg-yellow-950/40 dark:text-yellow-100">
+      <span className="text-xl">🏆</span>
+      <div>
+        <p className="text-xs font-semibold">{label}</p>
+        <p className="text-xl font-extrabold leading-tight">{highScore}</p>
+      </div>
     </div>
   );
 }

@@ -10,23 +10,51 @@ export interface Question {
   isAnswered: boolean;
 }
 
+function shuffle<T>(items: T[]): T[] {
+  const copy = [...items];
+  for (let i = copy.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [copy[i], copy[j]] = [copy[j], copy[i]];
+  }
+  return copy;
+}
+
+function formatRegion(region: string): string {
+  switch (region) {
+    case "Americas":
+      return "Américas";
+    case "Europe":
+      return "Europa";
+    case "Asia":
+      return "Asia";
+    case "Africa":
+      return "África";
+    case "Oceania":
+      return "Oceanía";
+    case "Antarctic":
+      return "Antártida";
+    default:
+      return region || "Desconocida";
+  }
+}
+
 export function generateQuestions(countries: Country[], count: number = 10): Question[] {
-  const selectedCountries = countries.sort(() => Math.random() - 0.5).slice(0, count);
+  const selectedCountries = shuffle(countries).slice(0, count);
 
   return selectedCountries.map((country, index) => {
     const correctAnswer = country.name.common;
-    const wrongAnswers = countries
-      .filter(c => c.name.common !== correctAnswer)
-      .sort(() => Math.random() - 0.5)
+    const wrongAnswers = shuffle(countries.filter((c) => c.name.common !== correctAnswer))
       .slice(0, 3)
-      .map(c => c.name.common);
+      .map((c) => c.name.common);
 
-    const options = [correctAnswer, ...wrongAnswers].sort(() => Math.random() - 0.5);
+    const options = shuffle([correctAnswer, ...wrongAnswers]);
+    const capital = country.capital?.[0] || "Desconocida";
+    const region = formatRegion(country.region);
 
     return {
       id: index,
       country,
-      question: `This country has the capital ${country.capital?.[0] || "Unknown"} and is located in ${country.region}. What is its name?`,
+      question: `¿Cuál es el país cuya capital es ${capital} y está en ${region}?`,
       correctAnswer,
       options,
       userAnswer: null,
