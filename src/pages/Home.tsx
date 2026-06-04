@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-function HomePage() {
+export default function Home() {
   const navigate = useNavigate();
 
   const handleStartQuiz = () => {
@@ -9,14 +9,10 @@ function HomePage() {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[70vh] text-center">
-
-      <h1 className="text-5xl md:text-6xl font-bold text-blue-600 mb-4">
-        🌎 Country Quiz
-      </h1>
+      <h1 className="text-5xl md:text-6xl font-bold text-blue-600 mb-4">🌎 Country Quiz</h1>
 
       <p className="text-lg md:text-xl text-gray-600 max-w-xl mb-8">
-        Pon a prueba tus conocimientos sobre países, capitales,
-        banderas y datos curiosos del mundo.
+        Pon a prueba tus conocimientos sobre países, capitales, banderas y datos curiosos del mundo.
       </p>
 
       <button
@@ -36,9 +32,6 @@ function HomePage() {
       >
         Iniciar Quiz
       </button>
-
     </div>
   );
 }
-
-export default HomePage;

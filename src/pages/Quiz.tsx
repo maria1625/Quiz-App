@@ -1,11 +1,11 @@
-﻿import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fetchCountries } from "../../services/countriesApi";
-import { generateQuestions, validateAnswer, calculateScore, type Question } from "../../data/questionGenerator";
-import { QuestionCard } from "../../components/QuestionCard";
-import { OptionCard } from "../../components/OptionCard";
+import { generateQuestions, calculateScore, type Question } from "../data/questionGenerator";
+import { fetchCountries } from "../services/countriesApi";
+import { OptionCard } from "../components/OptionCard";
+import { QuestionCard } from "../components/QuestionCard";
 
-export function QuizPage() {
+export default function Quiz() {
   const navigate = useNavigate();
   const [questions, setQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -20,7 +20,7 @@ export function QuizPage() {
         const newQuestions = generateQuestions(countries, 10);
         setQuestions(newQuestions);
       } catch (err) {
-        setError("No se pudo cargar el quiz. Intenta de nuevo.");
+        setError(err instanceof Error ? err.message : "No se pudo cargar el quiz. Intenta de nuevo.");
         console.error(err);
       } finally {
         setIsLoading(false);
@@ -44,7 +44,7 @@ export function QuizPage() {
       setCurrentIndex(currentIndex + 1);
     } else {
       const score = calculateScore(questions);
-      navigate("/results", {
+      navigate("/result", {
         state: { score, totalQuestions: questions.length },
       });
     }
@@ -123,7 +123,14 @@ export function QuizPage() {
               <button
                 key={idx}
                 onClick={() => setCurrentIndex(idx)}
-                className={w-10 h-10 rounded-full font-bold transition-colors }
+                className={[
+                  "w-10 h-10 rounded-full font-bold transition-colors",
+                  idx === currentIndex
+                    ? "bg-blue-600 text-white"
+                    : questions[idx].isAnswered
+                      ? "bg-green-600 text-white"
+                      : "bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 hover:bg-gray-300 dark:hover:bg-gray-600",
+                ].join(" ")}
               >
                 {idx + 1}
               </button>
@@ -142,5 +149,3 @@ export function QuizPage() {
     </div>
   );
 }
-
-export default QuizPage;

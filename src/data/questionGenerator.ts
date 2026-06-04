@@ -1,4 +1,4 @@
-﻿import type { Country } from "../services/countriesApi";
+import type { Country } from "../services/countriesApi";
 
 export interface Question {
   id: number;
@@ -26,7 +26,7 @@ export function generateQuestions(countries: Country[], count: number = 10): Que
     return {
       id: index,
       country,
-      question: This country has the capital  and is located in . What is its name?,
+      question: `This country has the capital ${country.capital?.[0] || "Unknown"} and is located in ${country.region}. What is its name?`,
       correctAnswer,
       options,
       userAnswer: null,
