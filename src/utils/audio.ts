@@ -14,7 +14,16 @@ function getAudioContext(): AudioContext | null {
   }
 }
 
-function playTone(frequency: number, duration = 0.16): void {
+type ToneType = OscillatorType;
+
+interface ToneOptions {
+  frequency: number;
+  duration?: number;
+  volume?: number;
+  type?: ToneType;
+}
+
+function playTone({ frequency, duration = 0.16, volume = 0.08, type = "sine" }: ToneOptions): void {
   const audioContext = getAudioContext();
   if (!audioContext) return;
 
@@ -22,8 +31,8 @@ function playTone(frequency: number, duration = 0.16): void {
   const gain = audioContext.createGain();
 
   oscillator.frequency.value = frequency;
-  oscillator.type = "sine";
-  gain.gain.setValueAtTime(0.08, audioContext.currentTime);
+  oscillator.type = type;
+  gain.gain.setValueAtTime(volume, audioContext.currentTime);
   gain.gain.exponentialRampToValueAtTime(0.001, audioContext.currentTime + duration);
 
   oscillator.connect(gain);
@@ -33,13 +42,13 @@ function playTone(frequency: number, duration = 0.16): void {
 }
 
 export function playCorrectSound(): void {
-  playTone(740, 0.18);
+  playTone({ frequency: 740, duration: 0.18, volume: 0.08, type: "sine" });
 }
 
 export function playIncorrectSound(): void {
-  playTone(220, 0.22);
+  playTone({ frequency: 196, duration: 0.26, volume: 0.14, type: "square" });
 }
 
 export function playTimeoutSound(): void {
-  playTone(150, 0.28);
+  playTone({ frequency: 150, duration: 0.28, volume: 0.12, type: "sawtooth" });
 }
